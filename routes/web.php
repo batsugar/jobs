@@ -1,5 +1,8 @@
+
 <?php
 
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PostController;
 
 /*
 |--------------------------------------------------------------------------
@@ -12,10 +15,19 @@
 |
 */
 
-use App\Http\Controllers\PostController;
-use Illuminate\Support\Facades\Route;
+Route::get('/posts', [PostController::class, 'index']);
+Route::get('/posts/create', [PostController::class, 'create']);
+Route::post('/post', [PostController::class, 'store']);
+Route::get('post/edit/{id}' , [PostController::class, 'edit']);
+Route::put('post/{id}', [PostController::class, 'update']);
+Route::delete('post/delete/{id}', [PostController::class, 'destroy']);
 
-route::get('/posts',[PostController::class,'index']);
+
+// Route::get('/second', function () {
+//     return view('pages.second');
+// });
+
+
 
 
 
