@@ -1,38 +1,11 @@
-
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\PostController;
+use App\Http\Controllers\JobController;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
-
-Route::get('/posts', [PostController::class, 'index']);
-Route::get('/posts/create', [PostController::class, 'create']);
-Route::post('/post', [PostController::class, 'store']);
-Route::get('post/edit/{id}' , [PostController::class, 'edit']);
-Route::put('post/{id}', [PostController::class, 'update']);
-Route::delete('post/delete/{id}', [PostController::class, 'destroy']);
-
-
-// Route::get('/second', function () {
-//     return view('pages.second');
-// });
-
-
-
-
-
-
-
-
-
-
+Route::get('/jobs', [JobController::class, 'index'])->name('jobs.index');
+Route::get('/jobs/create', [JobController::class, 'create']);
+Route::post('/jobs', [JobController::class, 'store']);
+Route::get('/jobs/edit/{id}', [JobController::class, 'edit']);
+Route::put('/jobs/{id}', [JobController::class, 'update']);
+Route::delete('/jobs/{id}', [JobController::class, 'destroy']);

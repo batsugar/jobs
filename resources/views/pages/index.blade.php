@@ -5,14 +5,14 @@
         <div class="row">
             <div class="col-md-12">
                 @if (session('message'))
-                    <div class="alert alert-success">{{session('message')}}</div>
+                    <div class="alert alert-success">{{ session('message') }}</div>
                 @endif
 
                 <div class="card">
                     <div class="card-header">
                         <h4>
-                            Posts
-                            <a href="{{url('/posts/create')}}" class="btn btn-outline-dark float-end">Create</a>
+                            Jobs
+                            <a href="{{ url('/jobs/create') }}" class="btn btn-outline-dark float-end">Create</a>
                         </h4>
                     </div>
                     <div class="card-body">
@@ -20,34 +20,45 @@
                             <thead>
                                 <tr>
                                     <th scope="col">ID</th>
-                                    <th scope="col">Title</th>
+                                    <th scope="col">Company</th>
+                                    <th scope="col">Name</th>
                                     <th scope="col">Description</th>
+                                    <th scope="col">Requirements</th>
+                                    <th scope="col">Salary</th>
+                                    <th scope="col">Image</th>
                                     <th scope="col">Status</th>
-                                    <th scope="col">Created at</th>
-                                    <th scope="col">Updated at</th>
+                                    <th scope="col">Created At</th>
+                                    <th scope="col">Updated At</th>
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($posts as $item)
+                                @foreach ($jobs as $item)
                                     <tr>
-                                        <td>{{$item->id}}</td>
-                                        <td>{{$item->title}}</td>
-                                        <td>{{$item->description}}</td>
-                                        <td>{{$item->status}}</td>
-                                        <td>{{$item->created_at}}</td>
-                                        <td>{{$item->updated_at}}</td>
-                                        <td>{{$item->action_at}}</td>
+                                        <td>{{ $item->id }}</td>
+                                        <td>{{ $item->company }}</td>
+                                        <td>{{ $item->name }}</td>
+                                        <td>{{ $item->description }}</td>
+                                        <td>{{ $item->requirements }}</td>
+                                        <td>{{ $item->salary }}</td>
                                         <td>
-                                            <a href="{{url('post/edit/' . $item->id)}}" class="btn btn-warning">
-                                                EDIT
+                                            @if ($item->image)
+                                                <img src="{{ asset('storage/' . $item->image) }}" alt="Job Image" style="max-width: 100px;">
+                                            @else
+                                                No Image
+                                            @endif
+                                        </td>
+                                        <td>{{ $item->status ? 'Open' : 'Closed' }}</td>
+                                        <td>{{ $item->created_at->format('d M Y H:i') }}</td>
+                                        <td>{{ $item->updated_at->format('d M Y H:i') }}</td>
+                                        <td>
+                                            <a href="{{ url('jobs/edit/' . $item->id) }}" class="btn btn-warning">
+                                                Edit
                                             </a>
-                                            <form action="{{url('post/delete/' . $item->id)}}" method="POST" onclick="return confirm('are you sure delete this')">
-                                            
+                                            <form action="{{ url('jobs/' . $item->id) }}" method="POST" style="display:inline;" onclick="return confirm('Are you sure you want to delete this job?')">
                                                 @csrf
-
-                                                @method('delete')
-                                                <button type="submit"class="btn btn-danger">delete</button>
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger">Delete</button>
                                             </form>
                                         </td>
                                     </tr>
@@ -59,5 +70,4 @@
             </div>
         </div>
     </div>
-
 @endsection
